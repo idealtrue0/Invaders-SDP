@@ -272,7 +272,7 @@ public final class Core {
 	public static Cooldown getVariableCooldown(final int milliseconds,
 			final int variance) {
 		return new Cooldown(milliseconds, variance);
-	} 
+	}
 
 	/**
 	 *
