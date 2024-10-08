@@ -275,10 +275,9 @@ public final class Core {
 	}
 
 	/**
-	 *
-	 * @param difficulty set Level
+	 * @param level set LevelSetting from GameSettingScreen
 	 */
-	public static void setLevelSetting(int difficulty){
-		LevelSetting = difficulty;
+	public static void setLevelSetting(final int level) {
+		LevelSetting = level;
 	}
 }
