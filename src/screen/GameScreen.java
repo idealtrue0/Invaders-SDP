@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import engine.*;
+import engine.Cooldown;
+import engine.Core;
+import engine.GameSettings;
+import engine.GameState;
 import entity.*;
 
 /**
@@ -65,6 +68,13 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+	/** Spider webs restricting player movement */
+	private List<Web> web;
+	/**
+	 * Obstacles preventing a player's bullet
+	 */
+	private List<Block> block;
+	private Wallet wallet;
 	/* Blocker 등장 쿨타임 */
 	private Cooldown blockerCooldown;
 	/* Blocker 보이는 시간 */
@@ -93,7 +103,7 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen(final GameState gameState,
 			final GameSettings gameSettings, final boolean bonusLife,
-			final int width, final int height, final int fps) {
+			final int width, final int height, final int fps, final Wallet wallet) {
 		super(width, height, fps);
 
 		this.gameSettings = gameSettings;
@@ -105,6 +115,8 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
+		this.wallet = wallet;
+
 		this.random = new Random();
 		this.blockerVisible = false;
 		this.blockerCooldown = Core.getVariableCooldown(10000, 14000);
@@ -122,6 +134,41 @@ public class GameScreen extends Screen {
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30);
+		ship.applyItem(wallet);
+		//Create random Spider Web.
+		int web_count = 1 + level / 3;
+		web = new ArrayList<>();
+		for(int i = 0; i < web_count; i++) {
+			double randomValue = Math.random();
+			this.web.add(new Web((int) (randomValue * width - 12 * 2), this.height - 30));
+			this.logger.info("거미줄 생성 위치 : " + web.get(i).getPositionX());
+		}
+		//Create random Block.
+		int blockCount = level / 2;
+		int playerTopY = this.height - 40;
+		int enemyBottomY = 100 + (gameSettings.getFormationHeight() - 1) * 48;
+		this.block = new ArrayList<Block>();
+		for (int i = 0; i < blockCount; i++) {
+			Block newBlock;
+			boolean overlapping;
+			do {
+				newBlock = new Block(0,0);
+				int positionX = (int) (Math.random() * (this.width - newBlock.getWidth()));
+				int positionY = (int) (Math.random() * (playerTopY - enemyBottomY - newBlock.getHeight())) + enemyBottomY;
+				newBlock = new Block(positionX, positionY);
+				overlapping = false;
+				for (Block block : block) {
+					if (checkCollision(newBlock, block)) {
+						overlapping = true;
+						break;
+					}
+				}
+			} while (overlapping);
+			block.add(newBlock);
+		}
+
+
+
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
 				BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
@@ -146,6 +193,7 @@ public class GameScreen extends Screen {
 		super.run();
 
 		this.score += LIFE_SCORE * (this.lives - 1);
+		if(this.lives == 0) this.score += 100;
 		this.logger.info("Screen cleared with a score of " + this.score);
 
 		return this.returnCode;
@@ -179,6 +227,22 @@ public class GameScreen extends Screen {
 				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
 					if (this.ship.shoot(this.bullets))
 						this.bulletsShot++;
+				boolean conti;
+
+
+
+				for(int i = 0; i < web.size(); i++) {
+					//escape Spider Web
+					if (ship.getPositionX() + 6 <= web.get(i).getPositionX() - 6
+							|| web.get(i).getPositionX() + 6 <= ship.getPositionX() - 6) {
+						this.ship.setThreadWeb(false);
+					}
+					//get caught in a spider's web
+					else {
+						this.ship.setThreadWeb(true);
+						break;
+					}
+				}
 			}
 
 			if (this.enemyShipSpecial != null) {
@@ -231,6 +295,16 @@ public class GameScreen extends Screen {
 
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
+		//draw Spider Web
+		for (int i = 0; i < web.size(); i++) {
+			drawManager.drawEntity(this.web.get(i), this.web.get(i).getPositionX(),
+					this.web.get(i).getPositionY());
+		}
+		//draw Blocks
+		for (Block block : block)
+			drawManager.drawEntity(block, block.getPositionX(),
+					block.getPositionY());
+
 		if (this.enemyShipSpecial != null)
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
@@ -359,30 +433,50 @@ public class GameScreen extends Screen {
 						this.lives--;
 						this.logger.info("Hit on player ship, " + this.lives
 								+ " lives remaining.");
+						}
 					}
-				}
-			} else {
-				for (EnemyShip enemyShip : this.enemyShipFormation)
-					if (!enemyShip.isDestroyed()
-							&& checkCollision(bullet, enemyShip)) {
-						this.score += enemyShip.getPointValue();
+				} else {
+					for (EnemyShip enemyShip : this.enemyShipFormation)
+						if (!enemyShip.isDestroyed()
+								&& checkCollision(bullet, enemyShip)) {
+							this.score += enemyShip.getPointValue();
+							this.shipsDestroyed++;
+							this.enemyShipFormation.destroy(enemyShip);
+							recyclable.add(bullet);
+						}
+					if (this.enemyShipSpecial != null
+							&& !this.enemyShipSpecial.isDestroyed()
+							&& checkCollision(bullet, this.enemyShipSpecial)) {
+						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
-						this.enemyShipFormation.destroy(enemyShip);
+						this.enemyShipSpecial.destroy();
+						this.enemyShipSpecialExplosionCooldown.reset();
 						recyclable.add(bullet);
 					}
-				if (this.enemyShipSpecial != null
-						&& !this.enemyShipSpecial.isDestroyed()
-						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					this.score += this.enemyShipSpecial.getPointValue();
-					this.shipsDestroyed++;
-					this.enemyShipSpecial.destroy();
-					this.enemyShipSpecialExplosionCooldown.reset();
-					recyclable.add(bullet);
+					//check the collision between the obstacle and the bullet
+					for (Block block : this.block) {
+						if (checkCollision(bullet, block)) {
+							recyclable.add(bullet);
+							break;
+						}
+					}
+				}
+			//check the collision between the obstacle and the enemyship
+			Set<Block> removableBlocks = new HashSet<>();
+			for (EnemyShip enemyShip : this.enemyShipFormation) {
+				if (!enemyShip.isDestroyed()) {
+					for (Block block : block) {
+						if (checkCollision(enemyShip, block)) {
+							removableBlocks.add(block);
+						}
+					}
 				}
 			}
-		this.bullets.removeAll(recyclable);
-		BulletPool.recycle(recyclable);
-	}
+			// remove crashed obstacle
+			block.removeAll(removableBlocks);
+			this.bullets.removeAll(recyclable);
+			BulletPool.recycle(recyclable);
+		}
 
 	/**
 	 * Checks if two entities are colliding.
