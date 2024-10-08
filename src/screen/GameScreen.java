@@ -267,8 +267,9 @@ public class GameScreen extends Screen {
 
 			this.ship.update();
 			this.enemyShipFormation.update();
-			this.enemyShipFormation.shoot(this.bullets);
-			if (level >= 3) { // 레벨 3 이후부터 시야 방해물 등장 이벤트 시작
+
+			 if (level >= 3) {// 레벨 3 이후부터 시야 방해물 등장 이벤트 시작
+                this.enemyShipFormation.shoot(this.bullets, this.level);
 				handleBlockerAppearance();
 			}
 		}
