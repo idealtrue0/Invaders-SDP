@@ -50,11 +50,11 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	/** Initialize singleton instance of SoundManager and return that */
+	private static final SoundManager soundManager = SoundManager.getInstance();
 
 	private static int LevelSetting;// <- setting EASY(0), NORMAL(1), HARD(2);
 
-	/** Initialize singleton instance of SoundManager and return that */
-	private static final SoundManager soundManager = SoundManager.getInstance();
 
 	/**
 	 * Test implementation.
