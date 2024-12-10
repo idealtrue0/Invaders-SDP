@@ -1,23 +1,22 @@
 package Test;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import screen.PuzzleScreen;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-public class PuzzleScreenTest {
+class PuzzleScreenTest {
     private PuzzleScreen puzzleScreen;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp(){
         puzzleScreen = new PuzzleScreen(0);
     }
 
+
     //모든 값이 정확하게 들어갔을 때
-    @Test
+    @org.junit.jupiter.api.Test
     public void handleInputTrue() {
         List<Integer> Sequence = puzzleScreen.getDirectionSequence();
         boolean Check = false;
@@ -25,11 +24,11 @@ public class PuzzleScreenTest {
             Check = puzzleScreen.handleInput(i);
         }
 
-        assertTrue(Check);
+        Assertions.assertTrue(Check);
     }
 
     //모든 값이 정확하게 들어가지 않았을 때
-    @Test
+    @org.junit.jupiter.api.Test
     public void handleInputFalse() {
         List<Integer> Sequence = puzzleScreen.getDirectionSequence();
         boolean Check = false;
@@ -37,18 +36,6 @@ public class PuzzleScreenTest {
             Check = puzzleScreen.handleInput(0);
         }
 
-        assertFalse(Check);
-    }
-
-    @Test
-    public void reset() {
-    }
-
-    @Test
-    public void getDirectionSequence() {
-    }
-
-    @Test
-    public void getPlayerInput() {
+        Assertions.assertFalse(Check);
     }
 }
