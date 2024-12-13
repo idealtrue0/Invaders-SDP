@@ -2,12 +2,14 @@ package entity;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.DrawManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 public class Boss extends Entity {
@@ -32,20 +34,20 @@ public class Boss extends Entity {
             case 1:
                 health = 50;
                 try {
-                    bossShipImage = ImageIO.read(new File("res/image/bossShip1.png"));
+                    bossShipImage = loadImageforJAR("image/bossShip1.png");
                     this.width = bossShipImage.getWidth();
                     this.height = bossShipImage.getHeight();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     logger.info("Boss image loading failed.");
                 }
                 break;
             case 2:
                 health = 100;
                 try {
-                    bossShipImage = ImageIO.read(new File("res/image/bossShip2.png"));
+                    bossShipImage = loadImageforJAR("image/bossShip2.png");
                     this.width = bossShipImage.getWidth();
                     this.height = bossShipImage.getHeight();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     logger.info("Boss image loading failed.");
                 }
                 break;
@@ -123,4 +125,18 @@ public class Boss extends Entity {
     public boolean isDestroyed() { return isDestroyed; };
 
     public int getWho() { return who; }
+
+    private static BufferedImage loadImageforJAR(String path) {
+        try {
+            // 클래스 이름을 사용해 ClassLoader를 불러오기
+            InputStream is = DrawManager.class.getClassLoader().getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Resource not found: " + path);
+            }
+            return ImageIO.read(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
