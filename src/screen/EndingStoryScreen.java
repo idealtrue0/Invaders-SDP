@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import engine.*;
 
@@ -31,8 +32,8 @@ public class EndingStoryScreen extends Screen{
     private int num;
     private int imagex = 42;
     private int imagey =20;
-    private int imagewidth=500;
-    private int imageheight = 380;
+    private int imagewidth = 500;
+    private int imageheight = 300;
     private static BufferedImage img_story11;
     private static BufferedImage img_story21;
     private static BufferedImage img_story22;
@@ -68,27 +69,27 @@ public class EndingStoryScreen extends Screen{
         num = 1;
         // story image
         try{
-            img_story11 = ImageIO.read(new File("res/image/boss01/afterclear/boss1Clear.png"));
+            img_story11 = loadImageforJAR("image/boss01/afterclear/boss1Clear.png");
 
 
-            img_story21 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)1.png"));
-            img_story22 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)2.png"));
-            img_story23 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)3.png"));
-            img_story24 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)4.png"));
-            img_story25 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)5.png"));
-            img_story26 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)6.png"));
-            img_story27 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)7.png"));
-            img_story28 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)8.png"));
-            img_story29 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)9.png"));
-            img_story210 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)10.png"));
-            img_story211 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)11.png"));
-            img_story212 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)12.png"));
-            img_story213 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)13.png"));
-            img_story214 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)14.png"));
-            img_story215 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)15.png"));
-            img_story216 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)16.png"));
-            img_story217 = ImageIO.read(new File("res/image/boss02/afterclear/보스 디자인2 (crying)17.png"));
-        } catch (IOException e){
+            img_story21 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)1.png");
+            img_story22 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)2.png");
+            img_story23 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)3.png");
+            img_story24 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)4.png");
+            img_story25 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)5.png");
+            img_story26 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)6.png");
+            img_story27 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)7.png");
+            img_story28 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)8.png");
+            img_story29 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)9.png");
+            img_story210 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)10.png");
+            img_story211 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)11.png");
+            img_story212 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)12.png");
+            img_story213 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)13.png");
+            img_story214 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)14.png");
+            img_story215 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)15.png");
+            img_story216 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)16.png");
+            img_story217 = loadImageforJAR("image/boss02/afterclear/보스 디자인2 (crying)17.png");
+        } catch (Exception e){
             logger.info("Story image loading failed");
         }
     }
@@ -123,9 +124,9 @@ public class EndingStoryScreen extends Screen{
 
         if(level == 3){
             //이미지 띄우기
-            DrawManager.getBackBufferGraphics().drawImage(img_story11, imagex, imagey , imagewidth, imageheight,null);
+            DrawManager.getBackBufferGraphics().drawImage(img_story11, imagex, imagey + 30 , imagewidth, imageheight,null);
 
-            String[] s = {"My ultimate masterpiece... ", "Without these, I can't protect her...", "(It seems they have lost consciousness.)", "(They look human. Let’s bring them aboard "};
+            String[] s = {"My ultimate masterpiece... ", "Without these, I can't protect her...", "(It seems he has lost consciousness.)", "(He looks human. Let’s bring him aboard "};
             String[] m = {"falling apart like this...","", "","our ship and monitor their condition.)"};
 
             if(this.skipCooldown.checkFinished() && this.inputDelay.checkFinished()){
@@ -168,40 +169,42 @@ public class EndingStoryScreen extends Screen{
             }
         }else if(level == 6){
             //이미지 띄우기
+            imagewidth = 400;
+            imageheight = 400;
             if(num == 1){
-                DrawManager.getBackBufferGraphics().drawImage(img_story21,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story21,imagex + 50, imagey - 20 , imagewidth, imageheight,null);
             }else if(num == 2){
-                DrawManager.getBackBufferGraphics().drawImage(img_story22,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story22,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }else if(num == 3){
-                DrawManager.getBackBufferGraphics().drawImage(img_story23,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story23,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 4){
-                DrawManager.getBackBufferGraphics().drawImage(img_story24,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story24,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 5){
-                DrawManager.getBackBufferGraphics().drawImage(img_story25,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story25,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 6){
-                DrawManager.getBackBufferGraphics().drawImage(img_story26,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story26,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }else if(num == 7){
-                DrawManager.getBackBufferGraphics().drawImage(img_story27,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story27,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }else if(num == 8){
-                DrawManager.getBackBufferGraphics().drawImage(img_story28,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story28,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 9){
-                DrawManager.getBackBufferGraphics().drawImage(img_story29,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story29,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 10){
-                DrawManager.getBackBufferGraphics().drawImage(img_story210,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story210,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 11){
-                DrawManager.getBackBufferGraphics().drawImage(img_story211,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story211,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 12){
-                DrawManager.getBackBufferGraphics().drawImage(img_story212,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story212,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }else if(num == 13){
-                DrawManager.getBackBufferGraphics().drawImage(img_story213,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story213,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 14){
-                DrawManager.getBackBufferGraphics().drawImage(img_story214,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story214,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }else if(num == 15){
-                DrawManager.getBackBufferGraphics().drawImage(img_story215,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story215,imagex + 50, imagey  -20, imagewidth, imageheight,null);
             }else if(num == 16){
-                DrawManager.getBackBufferGraphics().drawImage(img_story216,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story216,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }else if(num == 17){
-                DrawManager.getBackBufferGraphics().drawImage(img_story217,imagex, imagey , imagewidth, imageheight,null);
+                DrawManager.getBackBufferGraphics().drawImage(img_story217,imagex + 50, imagey -20 , imagewidth, imageheight,null);
             }
             if(this.imageCooldown.checkFinished()) { // 이미지 출력속도 조절
                 if (num == 17) {
@@ -257,6 +260,19 @@ public class EndingStoryScreen extends Screen{
         drawManager.completeDrawing(this);
     }
 
+    private static BufferedImage loadImageforJAR(String path) {
+        try {
+            // 클래스 이름을 사용해 ClassLoader를 불러오기
+            InputStream is = DrawManager.class.getClassLoader().getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Resource not found: " + path);
+            }
+            return ImageIO.read(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 }

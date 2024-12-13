@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import engine.*;
 
@@ -28,10 +29,10 @@ public class StoryScreen extends Screen{
     private int count;
     private int seccount;
     private int num;
-    private int imagex = 42;
-    private int imagey =20;
-    private int imagewidth=500;
-    private int imageheight = 380;
+    private int imagex = 92;
+    private int imagey = 0;
+    private int imagewidth=400;
+    private int imageheight = 400;
 
     private static BufferedImage img_story11;
     private static BufferedImage img_story12;
@@ -74,32 +75,32 @@ public class StoryScreen extends Screen{
         num = 1;
         // story image
         try{
-            img_story11 = ImageIO.read(new File("res/image/boss01/보스 디자인1.png"));
-            img_story12 = ImageIO.read(new File("res/image/boss01/보스 디자인2.png"));
-            img_story13 = ImageIO.read(new File("res/image/boss01/보스 디자인3.png"));
-            img_story14 = ImageIO.read(new File("res/image/boss01/보스 디자인4.png"));
-            img_story15 = ImageIO.read(new File("res/image/boss01/보스 디자인5.png"));
-            img_story16 = ImageIO.read(new File("res/image/boss01/보스 디자인6.png"));
-            img_story17 = ImageIO.read(new File("res/image/boss01/보스 디자인7.png"));
-            img_story18 = ImageIO.read(new File("res/image/boss01/보스 디자인8.png"));
+            img_story11 = loadImageforJAR("image/boss01/보스 디자인1.png");
+            img_story12 = loadImageforJAR("image/boss01/보스 디자인2.png");
+            img_story13 = loadImageforJAR("image/boss01/보스 디자인3.png");
+            img_story14 = loadImageforJAR("image/boss01/보스 디자인4.png");
+            img_story15 = loadImageforJAR("image/boss01/보스 디자인5.png");
+            img_story16 = loadImageforJAR("image/boss01/보스 디자인6.png");
+            img_story17 = loadImageforJAR("image/boss01/보스 디자인7.png");
+            img_story18 = loadImageforJAR("image/boss01/보스 디자인8.png");
 
-            img_story21 = ImageIO.read(new File("res/image/boss02/보스 디자인2.png"));
-            img_story22 = ImageIO.read(new File("res/image/boss02/보스 디자인3.png"));
-            img_story23 = ImageIO.read(new File("res/image/boss02/보스 디자인4.png"));
-            img_story24 = ImageIO.read(new File("res/image/boss02/보스 디자인5.png"));
-            img_story25 = ImageIO.read(new File("res/image/boss02/보스 디자인6.png"));
-            img_story26 = ImageIO.read(new File("res/image/boss02/보스 디자인7.png"));
-            img_story27 = ImageIO.read(new File("res/image/boss02/보스 디자인8.png"));
-            img_story28 = ImageIO.read(new File("res/image/boss02/보스 디자인9.png"));
-            img_story29 = ImageIO.read(new File("res/image/boss02/보스 디자인10.png"));
-            img_story210 = ImageIO.read(new File("res/image/boss02/보스 디자인11.png"));
-            img_story211 = ImageIO.read(new File("res/image/boss02/보스 디자인12.png"));
-            img_story212 = ImageIO.read(new File("res/image/boss02/보스 디자인13.png"));
-            img_story213 = ImageIO.read(new File("res/image/boss02/보스 디자인14.png"));
-            img_story214 = ImageIO.read(new File("res/image/boss02/보스 디자인15.png"));
-            img_story215 = ImageIO.read(new File("res/image/boss02/보스 디자인16.png"));
-            img_story216 = ImageIO.read(new File("res/image/boss02/보스 디자인17.png"));
-        } catch (IOException e){
+            img_story21 = loadImageforJAR("image/boss02/보스 디자인2.png");
+            img_story22 = loadImageforJAR("image/boss02/보스 디자인3.png");
+            img_story23 = loadImageforJAR("image/boss02/보스 디자인4.png");
+            img_story24 = loadImageforJAR("image/boss02/보스 디자인5.png");
+            img_story25 = loadImageforJAR("image/boss02/보스 디자인6.png");
+            img_story26 = loadImageforJAR("image/boss02/보스 디자인7.png");
+            img_story27 = loadImageforJAR("image/boss02/보스 디자인8.png");
+            img_story28 = loadImageforJAR("image/boss02/보스 디자인9.png");
+            img_story29 = loadImageforJAR("image/boss02/보스 디자인10.png");
+            img_story210 = loadImageforJAR("image/boss02/보스 디자인11.png");
+            img_story211 = loadImageforJAR("image/boss02/보스 디자인12.png");
+            img_story212 = loadImageforJAR("image/boss02/보스 디자인13.png");
+            img_story213 = loadImageforJAR("image/boss02/보스 디자인14.png");
+            img_story214 = loadImageforJAR("image/boss02/보스 디자인15.png");
+            img_story215 = loadImageforJAR("image/boss02/보스 디자인16.png");
+            img_story216 = loadImageforJAR("image/boss02/보스 디자인17.png");
+        } catch (Exception e){
             logger.info("Story image loading failed");
         }
     }
@@ -292,5 +293,18 @@ public class StoryScreen extends Screen{
     }
 
 
+    private static BufferedImage loadImageforJAR(String path) {
+        try {
+            // 클래스 이름을 사용해 ClassLoader를 불러오기
+            InputStream is = DrawManager.class.getClassLoader().getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Resource not found: " + path);
+            }
+            return ImageIO.read(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
