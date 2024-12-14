@@ -1,10 +1,13 @@
 package entity;
 
+import engine.DrawManager;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 
@@ -30,71 +33,71 @@ public class BossBullet extends Entity {
         switch (type) {
             case 0:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/missile00.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/missile00.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 1:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/missile01.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/missile01.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 2:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/missile02.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/missile02.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 3:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/missile03.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/missile03.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 4:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/star01.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/star01.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 5:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/star02.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/star02.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 6:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/star03.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/star03.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 7:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/star04.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/star04.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 8:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/star05.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/star05.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
             case 9:
                 try {
-                    bulletImage = ImageIO.read(new File("res/image/star06.png"));
-                } catch (IOException e) {
+                    bulletImage = loadImageforJAR("image/star06.png");
+                } catch (Exception e) {
                     logger.info("Boss Bullet image loading failed.");
                 }
                 break;
@@ -114,4 +117,18 @@ public class BossBullet extends Entity {
     public int getAttackType () { return this.attackType; }
 
     public int getSAVED_Y() {return this.SAVED_Y;}
+
+    private static BufferedImage loadImageforJAR(String path) {
+        try {
+            // 클래스 이름을 사용해 ClassLoader를 불러오기
+            InputStream is = DrawManager.class.getClassLoader().getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Resource not found: " + path);
+            }
+            return ImageIO.read(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

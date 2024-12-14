@@ -53,53 +53,55 @@ public class SoundManager {
 
         soundEnabled = true;
         try {
-            loadSound(Sound.MENU_BACK, "res/sound/SFX/menuBack.wav");
-            loadSound(Sound.MENU_CLICK, "res/sound/SFX/menuClick.wav");
-            loadSound(Sound.MENU_MOVE, "res/sound/SFX/menuMove.wav");
-            loadSound(Sound.MENU_TYPING, "res/sound/SFX/nameTyping.wav");
-            loadSound(Sound.COUNTDOWN, "res/sound/SFX/countdown.wav");
-            loadSound(Sound.ALIEN_HIT, "res/sound/SFX/alienHit.wav");
-            loadSound(Sound.ALIEN_LASER, "res/sound/SFX/alienLaser.wav");
-            loadSound(Sound.PLAYER_HIT, "res/sound/SFX/playerHit.wav");
-            loadSound(Sound.PLAYER_LASER, "res/sound/SFX/playerLaser.wav");
+            loadSound(Sound.MENU_BACK, "sound/SFX/menuBack.wav");
+            loadSound(Sound.MENU_CLICK, "sound/SFX/menuClick.wav");
+            loadSound(Sound.MENU_MOVE, "sound/SFX/menuMove.wav");
+            loadSound(Sound.MENU_TYPING, "sound/SFX/nameTyping.wav");
+            loadSound(Sound.COUNTDOWN, "sound/SFX/countdown.wav");
+            loadSound(Sound.ALIEN_HIT, "sound/SFX/alienHit.wav");
+            loadSound(Sound.ALIEN_LASER, "sound/SFX/alienLaser.wav");
+            loadSound(Sound.PLAYER_HIT, "sound/SFX/playerHit.wav");
+            loadSound(Sound.PLAYER_LASER, "sound/SFX/playerLaser.wav");
             //loadSound(Sound.PLAYER_MOVE, "res/sound/SFX/playerMove.wav");
-            loadSound(Sound.COIN_INSUFFICIENT, "res/sound/SFX/coinInsufficient.wav");
-            loadSound(Sound.COIN_USE, "res/sound/SFX/coinUse.wav");
-            loadSound(Sound.GAME_END, "res/sound/SFX/gameEnd.wav");
-            loadSound(Sound.UFO_APPEAR, "res/sound/SFX/ufoAppear.wav");
-            loadSound(Sound.BULLET_BLOCKING, "res/sound/SFX/bulletBlocking.wav");
-            loadSound(Sound.ITEM_2SHOT, "res/sound/SFX/item_2shot.wav");
-            loadSound(Sound.ITEM_3SHOT, "res/sound/SFX/item_3shot.wav");
-            loadSound(Sound.ITEM_BARRIER_ON, "res/sound/SFX/item_barrierOn.wav");
-            loadSound(Sound.ITEM_BARRIER_OFF, "res/sound/SFX/item_barrierOff.wav");
-            loadSound(Sound.ITEM_BOMB, "res/sound/SFX/item_bomb.wav");
-            loadSound(Sound.ITEM_GHOST, "res/sound/SFX/item_ghost.wav");
-            loadSound(Sound.ITEM_TIMESTOP_ON, "res/sound/SFX/item_timestopOn.wav");
-            loadSound(Sound.ITEM_TIMESTOP_OFF, "res/sound/SFX/item_timestopOff.wav");
-            loadSound(Sound.ITEM_shooting_laser, "res/sound/SFX/shooting_Laser.wav");
-            loadSound(Sound.ITEM_SPAWN, "res/sound/SFX/item_spawn.wav");
-            loadSound(Sound.BGM_MAIN, "res/sound/BGM/mainBGM.wav");
-            loadSound(Sound.BGM_GAMEOVER, "res/sound/BGM/GameOver.wav");
-            loadSound(Sound.BGM_SHOP, "res/sound/BGM/Shop.wav");
-            loadSound(Sound.BGM_LV1, "res/sound/BGM/Lv1.wav");
-            loadSound(Sound.BGM_LV2, "res/sound/BGM/Lv2.wav");
-            loadSound(Sound.BGM_LV3, "res/sound/BGM/Lv3.wav");
-            loadSound(Sound.BGM_BONUS, "res/sound/BGM/BonusLevelTheme.wav");
-            loadSound(Sound.BGM_LV5, "res/sound/BGM/Lv5.wav");
-            loadSound(Sound.BGM_LV6, "res/sound/BGM/Lv6.wav");
-            loadSound(Sound.BGM_LV7, "res/sound/BGM/Lv7.wav");
-            loadSound(Sound.BGM_STORY, "res/sound/BGM/BossTheme.wav");
-            loadSound(Sound.BGM_STORY2, "res/sound/BGM/Boss2Theme.wav");
-            loadSound(Sound.BGM_ENDSTORY2, "res/sound/BGM/EndStoryTheme.wav");
+            loadSound(Sound.COIN_INSUFFICIENT, "sound/SFX/coinInsufficient.wav");
+            loadSound(Sound.COIN_USE, "sound/SFX/coinUse.wav");
+            loadSound(Sound.GAME_END, "sound/SFX/gameEnd.wav");
+            loadSound(Sound.UFO_APPEAR, "sound/SFX/ufoAppear.wav");
+            loadSound(Sound.BULLET_BLOCKING, "sound/SFX/bulletBlocking.wav");
+            loadSound(Sound.ITEM_2SHOT, "sound/SFX/item_2shot.wav");
+            loadSound(Sound.ITEM_3SHOT, "sound/SFX/item_3shot.wav");
+            loadSound(Sound.ITEM_BARRIER_ON, "sound/SFX/item_barrierOn.wav");
+            loadSound(Sound.ITEM_BARRIER_OFF, "sound/SFX/item_barrierOff.wav");
+            loadSound(Sound.ITEM_BOMB, "sound/SFX/item_bomb.wav");
+            loadSound(Sound.ITEM_GHOST, "sound/SFX/item_ghost.wav");
+            loadSound(Sound.ITEM_TIMESTOP_ON, "sound/SFX/item_timestopOn.wav");
+            loadSound(Sound.ITEM_TIMESTOP_OFF, "sound/SFX/item_timestopOff.wav");
+            loadSound(Sound.ITEM_shooting_laser, "sound/SFX/shooting_Laser.wav");
+            loadSound(Sound.ITEM_SPAWN, "sound/SFX/item_spawn.wav");
+            loadSound(Sound.BGM_MAIN, "sound/BGM/mainBGM.wav");
+            loadSound(Sound.BGM_GAMEOVER, "sound/BGM/GameOver.wav");
+            loadSound(Sound.BGM_SHOP, "sound/BGM/Shop.wav");
+            loadSound(Sound.BGM_LV1, "sound/BGM/Lv1.wav");
+            loadSound(Sound.BGM_LV2, "sound/BGM/Lv2.wav");
+            loadSound(Sound.BGM_LV3, "sound/BGM/Lv3.wav");
+            loadSound(Sound.BGM_BONUS, "sound/BGM/BonusLevelTheme.wav");
+            loadSound(Sound.BGM_LV5, "sound/BGM/Lv5.wav");
+            loadSound(Sound.BGM_LV6, "sound/BGM/Lv6.wav");
+            loadSound(Sound.BGM_LV7, "sound/BGM/Lv7.wav");
+            loadSound(Sound.BGM_STORY, "sound/BGM/BossTheme.wav");
+            loadSound(Sound.BGM_STORY2, "sound/BGM/Boss2Theme.wav");
+            loadSound(Sound.BGM_ENDSTORY2, "sound/BGM/EndStoryTheme.wav");
 
             setVolume(currentVolume);
             logger.info("Finished loading all sounds.");
 
         } catch (IOException e) {
             soundEnabled = false;
+            System.out.println(e.getMessage());
             logger.warning("Loading failed: IO Exception");
         } catch (UnsupportedAudioFileException e) {
             soundEnabled = false;
+            System.out.println(e.getMessage());
             logger.warning("Loading failed: Unsupported audio file.");
         } catch (LineUnavailableException | IllegalArgumentException e) {
             soundEnabled = false;
@@ -126,26 +128,29 @@ public class SoundManager {
      * @throws IOException,UnsupportedAudioFileException,LineUnavailableException,IllegalArgumentException exception
      */
     public void loadSound(Sound sound, String filePath) throws IOException, UnsupportedAudioFileException, LineUnavailableException, IllegalArgumentException {
-        File soundFile = new File(filePath);
-        if (!soundFile.exists()) {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(filePath);
+        if (is == null) {
             throw new IOException("Sound file not found: " + filePath);
         }
 
+        // BufferedInputStream을 사용하여 mark/reset을 지원하도록 처리
+        BufferedInputStream bufferedIn = new BufferedInputStream(is);
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+
         List<Clip> clipPool = new ArrayList<>();
         for (int i = 0; i < POOL_SIZE; i++) {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clipPool.add(clip);
         }
+
         soundPools.put(sound, clipPool);
 
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioStream);
-
-        soundClips.put(sound, clip);
+        // 마지막으로 하나의 clip을 soundClips에 추가
+        soundClips.put(sound, clipPool.get(0));
     }
+
+
 
     /**
      * Apply volume to all audio files by converting integer volume to decibels non-linearly.

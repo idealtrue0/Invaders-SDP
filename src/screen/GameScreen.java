@@ -562,6 +562,7 @@ public class GameScreen extends Screen implements Callable<GameState> {
             if (bonusBossLevels.contains(level)) {
                 if ((bonusBoss != null && bonusBoss.isDestroyed() || bonusLevelCountdown != null && bonusLevelCountdown.checkFinished()) && !this.levelFinished) {
                     this.levelFinished = true;
+					score += 50;
                     soundManager.stopSound(soundManager.getCurrentBGM());
                     if (this.lives == 0)
                         soundManager.playSound(Sound.GAME_END);
@@ -800,7 +801,7 @@ public class GameScreen extends Screen implements Callable<GameState> {
 	}
 
 	private void managePlayerShooting(){
-		if(inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+		if(inputManager.isKeyDown(KeyEvent.VK_SPACE) && !hacked) {
 			if (this.ship.shoot(this.bullets, this.itemManager.getShotNum(), 0.0f)) // Player 1 attack
 				this.bulletsShot += this.itemManager.getShotNum();
 		}

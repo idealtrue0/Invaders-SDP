@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -94,13 +95,13 @@ public final class DrawManager {
 	/** For initialize item images */
 	public static void initializeItemImages() {
 		try {
-			itemImages.put(ItemManager.ItemType.Bomb, loadImage("res/image/bomb.png"));
-			itemImages.put(ItemManager.ItemType.LineBomb, loadImage("res/image/linebomb.png"));
-			itemImages.put(ItemManager.ItemType.Barrier, loadImage("res/image/barrier.png"));
-			itemImages.put(ItemManager.ItemType.Ghost, loadImage("res/image/ghost.png"));
-			itemImages.put(ItemManager.ItemType.TimeStop, loadImage("res/image/timestop.png"));
-			itemImages.put(ItemManager.ItemType.MultiShot, loadImage("res/image/multishot.png"));
-			itemImages.put(ItemManager.ItemType.Laser, loadImage("res/image/laser.png"));
+			itemImages.put(ItemManager.ItemType.Bomb, loadImageforJAR("image/bomb.png"));
+			itemImages.put(ItemManager.ItemType.LineBomb, loadImageforJAR("image/linebomb.png"));
+			itemImages.put(ItemManager.ItemType.Barrier, loadImageforJAR("image/barrier.png"));
+			itemImages.put(ItemManager.ItemType.Ghost, loadImageforJAR("image/ghost.png"));
+			itemImages.put(ItemManager.ItemType.TimeStop, loadImageforJAR("image/timestop.png"));
+			itemImages.put(ItemManager.ItemType.MultiShot, loadImageforJAR("image/multishot.png"));
+			itemImages.put(ItemManager.ItemType.Laser, loadImageforJAR("image/laser.png"));
 		} catch (Exception e) {
 			System.err.println("아이템 이미지를 로드할 수 없습니다: " + e.getMessage());
 		}
@@ -270,46 +271,46 @@ public final class DrawManager {
 
 		/** Shop image load*/
 		try{
-			img_additionallife = ImageIO.read(new File("res/image/additional life.jpg"));
-			img_bulletspeed = ImageIO.read(new File("res/image/bullet speed.jpg"));
-			img_coin = ImageIO.read(new File("res/image/coin.jpg"));
-			img_coingain = ImageIO.read(new File("res/image/coin gain.jpg"));
-			img_shotinterval = ImageIO.read(new File("res/image/shot interval.jpg"));
-		} catch (IOException e) {
+			img_additionallife = loadImageforJAR("image/additional life.jpg");
+			img_bulletspeed = loadImageforJAR("image/bullet speed.jpg");
+			img_coin = loadImageforJAR("image/coin.jpg");
+			img_coingain = loadImageforJAR("image/coin gain.jpg");
+			img_shotinterval = loadImageforJAR("image/shot interval.jpg");
+		} catch (Exception e) {
 			logger.info("Shop image loading failed");
 		}
 
 		/* Bonus Stage image load*/
 		try {
-			img_saturn = ImageIO.read(new File("res/image/saturn.png"));
-			img_saturn2 = ImageIO.read(new File("res/image/saturn2.png"));
-			img_saturn3= ImageIO.read(new File("res/image/saturn3.png"));
-			img_saturn_destroyed = ImageIO.read(new File("res/image/saturn_destroyed.png"));
-			img_timelimit = ImageIO.read(new File("res/image/timelimit.png"));
-		} catch (IOException e) {
+			img_saturn = loadImageforJAR("image/saturn.png");
+			img_saturn2 = loadImageforJAR("image/saturn2.png");
+			img_saturn3= loadImageforJAR("image/saturn3.png");
+			img_saturn_destroyed = loadImageforJAR("image/saturn_destroyed.png");
+			img_timelimit = loadImageforJAR("image/timelimit.png");
+		} catch (Exception e) {
 			logger.info("Bonus Boss image loading failed.");
 		}
 
 
 		/* Boss Stage image load*/
 		try {
-			img_bossHPbar = ImageIO.read(new File("res/image/bossHPbar.png"));
-			img_hacking = ImageIO.read(new File("res/image/404.png"));
-			img_laserShooter = ImageIO.read(new File("res/image/laserShooter.png"));
-			img_LblackHole = ImageIO.read(new File("res/image/blackhole01.png"));
-			img_RblackHole = ImageIO.read(new File("res/image/blackhole02.png"));
+			img_bossHPbar = loadImageforJAR("image/bossHPbar.png");
+			img_hacking = loadImageforJAR("image/404.png");
+			img_laserShooter = loadImageforJAR("image/laserShooter.png");
+			img_LblackHole = loadImageforJAR("image/blackhole01.png");
+			img_RblackHole = loadImageforJAR("image/blackhole02.png");
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.info("Boss image loading failed.");
 		}
 
 		/** Puzzle image load */
 		try {
-			img_upArrow = ImageIO.read(new File("res/image/upArrow.png"));
-			img_downArrow = ImageIO.read(new File("res/image/downArrow.png"));
-			img_leftArrow = ImageIO.read(new File("res/image/leftArrow.png"));
-			img_rightArrow = ImageIO.read(new File("res/image/rightArrow.png"));
-		} catch (IOException e) {
+			img_upArrow = loadImageforJAR("image/upArrow.png");
+			img_downArrow = loadImageforJAR("image/downArrow.png");
+			img_leftArrow = loadImageforJAR("image/leftArrow.png");
+			img_rightArrow = loadImageforJAR("image/rightArrow.png");
+		} catch (Exception e) {
 			logger.info("Puzzle image loading failed.");
 		}
 	}
@@ -1883,6 +1884,19 @@ public final class DrawManager {
 					positionX,
 					screen.getHeight() / 4 + fontRegularMetrics.getHeight()
 							* 14);
+		}
+	}
+	private static BufferedImage loadImageforJAR(String path) {
+		try {
+			// 클래스 이름을 사용해 ClassLoader를 불러오기
+			InputStream is = DrawManager.class.getClassLoader().getResourceAsStream(path);
+			if (is == null) {
+				throw new IllegalArgumentException("Resource not found: " + path);
+			}
+			return ImageIO.read(is);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
